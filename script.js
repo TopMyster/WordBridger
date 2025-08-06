@@ -1,10 +1,8 @@
-let API_KEY
-
 window.onload = function() {
     if(!localStorage.getItem("API_KEY")) {
         document.getElementById('getkey').style.display = 'block'
         document.getElementById('submition').addEventListener('click', function() {
-            API_KEY = document.getElementById('gotkey').value
+            const API_KEY = document.getElementById('gotkey').value
             localStorage.setItem("API_KEY", API_KEY)
             document.getElementById('getkey').style.display = 'none'
         })
@@ -48,7 +46,7 @@ function speech() {
     speak(txt, 0.8, 0.8)
 }
 
-document.getElementById('translatebtn').addEventListener('click', translate())
+document.getElementById('translatebtn').addEventListener('click', translate)
 
 async function translate() {
     const API_KEY = localStorage.getItem("API_KEY")
@@ -67,7 +65,7 @@ async function translate() {
           messages: [
             {
               role: "user",
-              content: `In the first sentance only Translate the ${transcript} to ${language}. 2 lines under the 1st sentance write a short 2 sentance definitions of the translation.`,
+              content: `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlates 2 lines under the 1st sentance write a short 2 sentence definitions of the translation.`,
             },
           ],
         }),
@@ -77,7 +75,8 @@ async function translate() {
       console.log("Response data:", data);
       
       if (data.choices && data.choices.length > 0) {
-        document.getElementById('result').value = data.choices[0].message.content || data.choices[0].text.content
+       document.getElementById('result').innerHTML = data.choices?.[0]?.message?.content || '';
+       console.log("Answer:", data.choices?.[0]?.message?.content || '')
       } else {
         console.error("Unexpected response format:", data);
       }

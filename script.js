@@ -49,6 +49,7 @@ function speech() {
 document.getElementById('translatebtn').addEventListener('click', translate)
 
 async function translate() {
+    document.getElementById('result').innerHTML = 'Loading...'
     const API_KEY = localStorage.getItem("API_KEY")
     const language = document.getElementById('language').value
     const transcript = document.getElementById('userinput').value
@@ -85,5 +86,20 @@ async function translate() {
       console.error("Error during fetch:", err);
     }
   }
+
+  async function copyTextToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log('Text copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
+
+document.getElementById('copybtn').addEventListener('click', function() {
+    const text = document.getElementById('result').value;
+    copyTextToClipboard(text);
+    document.getElementById('copybtn').textContent ='Copy✔'
+})
 
 

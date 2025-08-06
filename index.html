@@ -8,12 +8,12 @@
 </head>
 <body>
     <h1>WordBridge</h1>
-    <h2>A smart AI translator website</h2>
-    <div id="">
+    <h2 style=" background: linear-gradient(80deg, rgb(255, 47, 255), rgb(40, 40, 255));-webkit-background-clip: text;-webkit-text-fill-color: transparent;background-clip: text;color: transparent; line-height: 2;">A smart AI translator website</h2>
+    <div id="detectdiv">
         <h3>Detect language</h3>
         <textarea placeholder="Type what you want translated" id="userinput"></textarea>
     </div>
-    <button id="translatebtn">Translate</button>
+    <button id="translatebtn">Translate</button><br>
      <div>
         <select id="language">
         <option value="">Select a language</option>
@@ -28,8 +28,9 @@
         <option value=""></option>
         <option value=""></option>
         </select><br>
-        <textarea placeholder="Type what you want translated" id="result"></textarea><br>
-        <button onclick="speech()">Speech</button>
+        <textarea id="result">Here is your translation</textarea><br>
+        <button id="copybtn">Copy</button>
+        <button onclick="speech()">🔈</button>
      </div>
     <div id="getkey">
         <h2>Enter your API_KEY here.</h2>

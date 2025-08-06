@@ -4,22 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordBridge</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>WordBridge</h1>
     <h2>A smart AI translator website</h2>
     <label for="userinput">Detected language</label>
     <textarea placeholder="Type what you want translated" id="userinput"></textarea>
-    <button onclick="translate()">Translate</button>
+    <button id="translatebtn">Translate</button>
      <label for="userinput">Output</label>
      <select id="language">
         <option value="">Select a language</option>
-        <option value="english">hi</option>
-        <option value="english">hi</option>
-        <option value="english">hi</option>
-        <option value="english">hi</option>
+        <option value="english">English</option>
+        <option value="spanish">Spanish</option>
+        <option value="french">French</option>
+        <option value="german">German</option>
+        <option value="yourba">Yourba</option>
+        <option value="chinese">Chinese</option>
+        <option value="japanese">Japanese</option>
+        <option value="latin">Latin</option>
+        <option value=""></option>
+        <option value=""></option>
      </select>
     <textarea placeholder="Type what you want translated" id="result"></textarea>
+    <button onclick="speech()">Speech</button>
+
+    <div id="getkey">
+        <h2>Submit your API_KEY here.</h2>
+        <input id="gotkey" placeholder="API_KEY here">
+        <button id="submition">Submition</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

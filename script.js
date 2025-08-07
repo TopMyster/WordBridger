@@ -1,11 +1,11 @@
 window.onload = function() {
-    if(!localStorage.getItem("API_KEY")) {
-        document.getElementById('getkey').style.display = 'block'
-        document.getElementById('submition').addEventListener('click', function() {
-            const API_KEY = document.getElementById('gotkey').value
-            localStorage.setItem("API_KEY", API_KEY)
-            document.getElementById('getkey').style.display = 'none'
-        })
+    if (!localStorage.getItem("API_KEY")) {
+        const apiKey = window.prompt('Enter your API_KEY here.')
+        if (apiKey) {
+            localStorage.setItem("API_KEY", apiKey)
+        } else {
+            alert("API key is required.")
+        }
     }
 }
 

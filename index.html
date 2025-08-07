@@ -7,14 +7,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>WordBridge</h1>
-    <h2 style=" background: linear-gradient(80deg, rgb(255, 47, 255), rgb(40, 40, 255));-webkit-background-clip: text;-webkit-text-fill-color: transparent;background-clip: text;color: transparent; line-height: 1.3;">An AI powered language translator website</h2>
+    <h1 style="top: 20px; position: relative;">WordBridge</h1>
+    <h3 style=" background: linear-gradient(80deg, rgb(255, 47, 255), rgb(40, 40, 255));-webkit-background-clip: text;-webkit-text-fill-color: transparent;background-clip: text;color: transparent; line-height: 2.4;">An AI powered language translator website</h3>
     <div id="detectdiv">
-        <h3>Detect language</h3>
-        <textarea placeholder="Type what you want translated" id="userinput">hi</textarea>
+        <h3 style="margin-left: 20px; line-height: .3;">Detect language</h3>
+        <textarea placeholder="Type what you want translated" id="userinput"></textarea>
     </div>
      <div id="translatediv">
-        <select id="language">
+        <textarea id="result">Here is your translation</textarea><br>
+        <button id="copybtn" style="z-index: 20;">Copy</button>
+        <button onclick="speech()">🔈</button>
+        <select id="language" style="margin-right: 20px; position: relative; z-index: 20;">
         <option value="">Select a language</option>
         <option value="english">English</option>
         <option value="spanish">Spanish</option>
@@ -27,16 +30,8 @@
         <option value=""></option>
         <option value=""></option>
         </select><br>
-        <textarea id="result">Here is your translation</textarea><br>
-        <button id="copybtn">Copy</button>
-        <button onclick="speech()">🔈</button>
      </div>
       <button id="translatebtn" >Translate</button><br>
-    <div id="getkey">
-        <h2>Enter your API_KEY here.</h2>
-        <input id="gotkey" placeholder="API_KEY here">
-        <button id="submition">Submition</button>
-    </div>
     <script src="script.js"></script>
 </body>
 </html>

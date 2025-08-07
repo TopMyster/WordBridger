@@ -1,6 +1,6 @@
 window.onload = function() {
     if (!localStorage.getItem("API_KEY")) {
-        const apiKey = window.prompt('Enter your API_KEY here.')
+        const apiKey = window.prompt('Enter your API_KEY here. Get the API_KEY from https://openrouter.ai/')
         if (apiKey) {
             localStorage.setItem("API_KEY", apiKey)
         } else {

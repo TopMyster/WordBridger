@@ -41,6 +41,7 @@ textarea {
     font-weight: bold;
     position: relative;
     bottom: 180px;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.129);
 }
 
 

@@ -49,47 +49,48 @@ function speech() {
 document.getElementById('translatebtn').addEventListener('click', translate)
 
 async function translate() {
-    if (!localStorage.getItem("API_KEY")) {
-        document.getElementById('result').innerHTML = 'Get your API_KEY'
-    }
-    document.getElementById('result').innerHTML = 'Loading...'
-    const API_KEY = localStorage.getItem("API_KEY")
-    const language = document.getElementById('language').value
-    const transcript = document.getElementById('userinput').value
-    console.log("Sending transcript:", transcript);
-    try {
-      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "deepseek/deepseek-r1-0528:free",
-          messages: [
-            {
-              role: "user",
-              content: `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlates 2 lines under the 1st sentance write a short 2 sentence definitions of the translation.`,
-            },
-          ],
-        }),
-      });
-      
-      const data = await response.json();
-      console.log("Response data:", data);
-      
-      if (data.choices && data.choices.length > 0) {
-       document.getElementById('result').innerHTML = data.choices?.[0]?.message?.content || '';
-       console.log("Answer:", data.choices?.[0]?.message?.content || '')
-      } else {
-        console.error("Unexpected response format:", data);
-      }
-      
-    } catch (err) {
-      console.error("Error during fetch:", err);
-    }
+  if (!localStorage.getItem("API_KEY")) {
+    document.getElementById('result').innerHTML = 'Get your API_KEY';
+    return;
   }
+  document.getElementById('result').innerHTML = 'Loading...';
+  const API_KEY = localStorage.getItem("API_KEY");
+  const language = document.getElementById('language').value;
+  const transcript = document.getElementById('userinput').value;
+  console.log("Sending transcript:", transcript);
 
+  try {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "meta-llama/llama-3.3-70b-instruct:free",
+        messages: [
+          {
+            role: "user",
+            content: `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlates 2 lines under the 1st sentance write a short 2 sentence definitions of the translation.`,
+          },
+        ],
+      }),
+    });
+
+    const data = await response.json();
+    console.log("Response data:", data);
+
+    if (data.choices && data.choices.length > 0) {
+      document.getElementById('result').innerHTML =
+        data.choices?.[0]?.message?.content || '';
+      console.log("Llama answer:", data.choices?.[0]?.message?.content || '');
+    } else {
+      console.error("Unexpected response format:", data);
+    }
+  } catch (err) {
+    console.error("Error during fetch:", err);
+  }
+}
   async function copyTextToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);

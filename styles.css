@@ -67,6 +67,7 @@ textarea {
 
 
 #result {
+    font-weight: 570;
     background-color: white;
     color: rgb(151, 1, 205);
     border: 2px solid rgb(132, 2, 179);

@@ -58,6 +58,7 @@ textarea {
     text-align: left;
     z-index: 10;
     position: relative;
+    width: 200px;
 }
 
 

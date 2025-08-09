@@ -50,10 +50,10 @@ document.getElementById('translatebtn').addEventListener('click', translate)
 
 async function translate() {
   if (!localStorage.getItem("API_KEY")) {
-    document.getElementById('result').innerHTML = 'Get your API_KEY';
+    document.getElementById('result').value = 'Get your API_KEY';
     return;
   }
-  document.getElementById('result').innerHTML = 'Loading...';
+  document.getElementById('result').value = 'Loading...';
   const API_KEY = localStorage.getItem("API_KEY");
   const language = document.getElementById('language').value;
   const transcript = document.getElementById('userinput').value;
@@ -92,7 +92,7 @@ async function translate() {
     console.log("Response data:", data);
 
     if (data.choices && data.choices.length > 0) {
-      document.getElementById('result').innerHTML =
+      document.getElementById('result').value =
         data.choices?.[0]?.message?.content || '';
       console.log("Llama answer:", data.choices?.[0]?.message?.content || '');
     } else {

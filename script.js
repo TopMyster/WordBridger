@@ -58,7 +58,18 @@ async function translate() {
   const language = document.getElementById('language').value;
   const transcript = document.getElementById('userinput').value;
   console.log("Sending transcript:", transcript);
-
+  const defaultmode = `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlates 2 lines under the 1st sentance write a short 2 sentence definitions of the translation.`
+  const generatemode = `generate item or request they say into ${language} and an example of this is if someone says Generate a nice letter to my spanish sister, you generate a full letter in ${language} and you do not translate Generate a nice letter to my spanish sister`
+  let mode
+        let userInput = document.getElementById('userinput');
+        let value = userInput.value || '';
+        if (value.toLowerCase().startsWith('generate')) {
+           mode = generatemode
+          userInput.style.color = '#972ee1ff';
+        } else {
+          userInput.style.color = '';
+            mode = defaultmode
+        }
   try {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -71,7 +82,7 @@ async function translate() {
         messages: [
           {
             role: "user",
-            content: `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlates 2 lines under the 1st sentance write a short 2 sentence definitions of the translation.`,
+            content: `${mode}`,
           },
         ],
       }),
@@ -99,6 +110,16 @@ async function translate() {
     console.error('Failed to copy: ', err);
   }
 }
+
+ setInterval(function() {
+        let userInput = document.getElementById('userinput');
+        let value = userInput.value || '';
+        if (value.toLowerCase().startsWith('generate')) {
+          userInput.style.color = '#972ee1ff';
+        } else {
+          userInput.style.color = '';
+        }
+      }, 1000);
 
 document.getElementById('copybtn').addEventListener('click', function() {
     const text = document.getElementById('result').value;

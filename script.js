@@ -116,8 +116,12 @@ async function translate() {
         let value = userInput.value || '';
         if (value.toLowerCase().startsWith('generate')) {
           userInput.style.color = '#972ee1ff';
+          document.getElementById('translatebtn').textContent = 'Generate'
+          document.getElementById('translatebtn').style.color = '#972ee1ff'
         } else {
           userInput.style.color = '';
+          document.getElementById('translatebtn').textContent = 'Translate'
+          document.getElementById('translatebtn').style.color = '#000000ff'
         }
       }, 1000);
 

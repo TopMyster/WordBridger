@@ -59,7 +59,7 @@ async function translate() {
   const transcript = document.getElementById('userinput').value;
   console.log("Sending transcript:", transcript);
   const defaultmode = `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlates 2 lines under the 1st sentance write a short 2 sentence definitions of the translation.`
-  const generatemode = `generate item or request they say which is ${transcript}, into ${language} and an example of this is if someone says Generate a nice letter to my spanish sister, you generate a full letter in ${language} and you do not translate Generate a nice letter to my spanish sister`
+  const generatemode = `generate item or request they say which is ${transcript}, into ${language} and an example of this is if someone says Generate a nice letter to my spanish sister, you generate a full letter in ${language} and you do not translate Generate a nice letter to my spanish sister. make what you generate sound a bit human too.`
   let mode
         let userInput = document.getElementById('userinput');
         let value = userInput.value || '';

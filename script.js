@@ -49,6 +49,7 @@ function speech() {
 document.getElementById('translatebtn').addEventListener('click', translate)
 
 async function translate() {
+  getPreferredVoice()
   if (!localStorage.getItem("API_KEY")) {
     document.getElementById('result').value = 'Get your API_KEY';
     return;

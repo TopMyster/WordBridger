@@ -47,9 +47,8 @@ function speech() {
 }
 
 document.getElementById('translatebtn').addEventListener('click', translate)
-
 async function translate() {
-  getPreferredVoice()
+  getPreferredVoice();
   if (!localStorage.getItem("API_KEY")) {
     document.getElementById('result').value = 'Get your API_KEY';
     return;
@@ -59,27 +58,30 @@ async function translate() {
   const language = document.getElementById('language').value;
   const transcript = document.getElementById('userinput').value;
   console.log("Sending transcript:", transcript);
-  const defaultmode = `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlated 2 lines under the 1st sentance write short 2 sentence defining and explaining the meaning the the translation. make sure your translations are correct and accurate. Be as accurate with the translation as possible and get them from google translate. Don't put the translated word in the response and dont put things like **Definition and Explanation** or any *. make sure the translation is 1 lines above the description.`
-  const generatemode = `generate item or request they say which is ${transcript}, into ${language} and an example of this is if someone says Generate a nice letter to my spanish sister, you generate a full letter in ${language} and you do not translate Generate a nice letter to my spanish sister. make what you generate sound a bit human too. dont put the tranlation of the the generated text in the response`
-  let mode
-        let userInput = document.getElementById('userinput');
-        let value = userInput.value || '';
-        if (value.toLowerCase().startsWith('generate')) {
-           mode = generatemode
-          userInput.style.color = '#972ee1ff';
-        } else {
-          userInput.style.color = '';
-            mode = defaultmode
-        }
+
+  const defaultmode = `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlated 2 lines under the 1st sentance write short 2 sentence defining and explaining the meaning the the translation. make sure your translations are correct and accurate. Be as accurate with the translation as possible and get them from google translate. Don't put the translated word in the response and dont put things like **Definition and Explanation** or any *. make sure the translation is 1 lines above the description.`;
+  const generatemode = `generate item or request they say which is ${transcript}, into ${language} and an example of this is if someone says Generate a nice letter to my spanish sister, you generate a full letter in ${language} and you do not translate Generate a nice letter to my spanish sister. make what you generate sound a bit human too. dont put the tranlation of the the generated text in the response`;
+
+  let mode;
+  let userInput = document.getElementById('userinput');
+  let value = userInput.value || '';
+  if (value.toLowerCase().startsWith('generate')) {
+    mode = generatemode;
+    userInput.style.color = '#972ee1ff';
+  } else {
+    userInput.style.color = '';
+    mode = defaultmode;
+  }
+
   try {
-    const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${API_KEY}`,
       },
       body: JSON.stringify({
-        model: "openai/gpt-oss-20b:fireworks-ai",
+        model: "openai/gpt-oss-20b", 
         messages: [
           {
             role: "user",
@@ -94,15 +96,18 @@ async function translate() {
 
     if (data.choices && data.choices.length > 0) {
       document.getElementById('result').value =
-        data.choices?.[0]?.message?.content || '';
-      console.log("Llama answer:", data.choices?.[0]?.message?.content || '');
+        data.choices[0].message.content || '';
+      console.log("Groq answer:", data.choices[0].message.content || '');
     } else {
+      document.getElementById('result').value = 'No response from Groq API';
       console.error("Unexpected response format:", data);
     }
   } catch (err) {
+    document.getElementById('result').value = 'Error contacting Groq API';
     console.error("Error during fetch:", err);
   }
 }
+
   async function copyTextToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);

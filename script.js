@@ -1,6 +1,6 @@
 window.onload = function() {
     if (!localStorage.getItem("API_KEY")) {
-        const apiKey = window.prompt('Enter your API_KEY here. Get the API_KEY from https://openrouter.ai/')
+        const apiKey = window.prompt('Enter your API_KEY here. Get the API_KEY from https://huggingface.co/')
         if (apiKey) {
             localStorage.setItem("API_KEY", apiKey)
         } else {
@@ -58,8 +58,8 @@ async function translate() {
   const language = document.getElementById('language').value;
   const transcript = document.getElementById('userinput').value;
   console.log("Sending transcript:", transcript);
-  const defaultmode = `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlates 2 lines under the 1st sentance write a short 2 sentence definitions of the translation.`
-  const generatemode = `generate item or request they say which is ${transcript}, into ${language} and an example of this is if someone says Generate a nice letter to my spanish sister, you generate a full letter in ${language} and you do not translate Generate a nice letter to my spanish sister. make what you generate sound a bit human too.`
+  const defaultmode = `In the first sentance only Translate the ${transcript} to ${language}. The first sentance should only consist of just the word tranlated 2 lines under the 1st sentance write short 2 sentence defining and explaining the meaning the the translation. make sure your translations are correct and accurate. Be as accurate with the translation as possible and get them from google translate. Don't put the translated word in the response and dont put things like **Definition and Explanation** or any *. make sure the translation is 1 lines above the description.`
+  const generatemode = `generate item or request they say which is ${transcript}, into ${language} and an example of this is if someone says Generate a nice letter to my spanish sister, you generate a full letter in ${language} and you do not translate Generate a nice letter to my spanish sister. make what you generate sound a bit human too. dont put the tranlation of the the generated text in the response`
   let mode
         let userInput = document.getElementById('userinput');
         let value = userInput.value || '';
@@ -71,14 +71,14 @@ async function translate() {
             mode = defaultmode
         }
   try {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${API_KEY}`,
       },
       body: JSON.stringify({
-        model: "meta-llama/llama-3.3-70b-instruct:free",
+        model: "openai/gpt-oss-20b:fireworks-ai",
         messages: [
           {
             role: "user",
